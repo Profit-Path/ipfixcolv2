@@ -164,6 +164,7 @@ tats_print(const struct instance_data *inst)
     printf("  \"options_records\": %" PRIu64 ",\n", inst->cnt_flows_opts);
     printf("  \"total_bytes\": %" PRIu64 ",\n", inst->cnt_bytes);
     printf("  \"total_packets\": %" PRIu64 ",\n", inst->cnt_pkts);
+     printf("}\n");
     
 }
 
