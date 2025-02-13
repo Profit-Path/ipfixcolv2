@@ -43,7 +43,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <inttypes.h>
-
+#include <time.h>
 #include "config.h"
 
 #define IANA_PEN     0
@@ -146,13 +146,25 @@ stats_update(struct instance_data *inst, ipx_msg_ipfix_t *msg)
  * @param[in] inst Plugin instance
  */
 static void
-stats_print(const struct instance_data *inst)
+tats_print(const struct instance_data *inst)
 {
-    printf("Stats:\n");
-    printf("- data records:    %10" PRIu64 "\n", inst->cnt_flows_data);
-    printf("- options records: %10" PRIu64 "\n", inst->cnt_flows_opts);
-    printf("- total bytes:     %10" PRIu64 "\n", inst->cnt_bytes);
-    printf("- total packets:   %10" PRIu64 "\n", inst->cnt_pkts);
+    // Get the current time
+    time_t raw_time;
+    struct tm *time_info;
+    char time_str[20];  // Buffer to hold formatted time string
+
+    time(&raw_time);
+    time_info = localtime(&raw_time);
+    strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", time_info);
+
+    // Print stats as JSON
+    printf("{\n");
+    printf("  \"time\": \"%s\",\n", time_str);
+    printf("  \"data_records\": %" PRIu64 ",\n", inst->cnt_flows_data);
+    printf("  \"options_records\": %" PRIu64 ",\n", inst->cnt_flows_opts);
+    printf("  \"total_bytes\": %" PRIu64 ",\n", inst->cnt_bytes);
+    printf("  \"total_packets\": %" PRIu64 ",\n", inst->cnt_pkts);
+    
 }
 
 int
