@@ -145,8 +145,7 @@ stats_update(struct instance_data *inst, ipx_msg_ipfix_t *msg)
  * @brief Print statistics
  * @param[in] inst Plugin instance
  */
-static void
-tats_print(const struct instance_data *inst)
+static void stats_print(const struct instance_data *inst)
 {
     // Get the current time
     time_t raw_time;
