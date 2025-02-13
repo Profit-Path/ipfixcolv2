@@ -205,6 +205,7 @@ ipx_plugin_process(ipx_ctx_t *ctx, void *cfg, ipx_msg_t *msg)
 
         if (data->config->en_stats) {
             stats_update(data, ipfix_msg);
+            stats_print(data);
         }
     }
 
